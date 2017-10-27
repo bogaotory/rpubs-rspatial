@@ -76,7 +76,13 @@ The difference between the two is that `library` will result in an error, if the
 volcano.r <- raster(volcano); spplot(volcano.r)
 ```
 3. Install the R package called `raster`, including its dependencies 
+```
+install.packages("raster", dependencies = TRUE)
+```
 4. Load the library and observe the message you receive
+```
+library(raster)
+```
 5. Use the `"up" arrow` on your keyboard to recall the line that you last typed in and hit enter
 
 ****
@@ -283,18 +289,38 @@ One the most common ways of getting data into R is to read in a table. And -- yo
 ****
 #### Exercise 2
 
-1. Create a new directory `R_Workshop` on your Desktop. 
+1. Create a new directory `R_Workshop` on your Desktop.
 2. Download and unzip [table_10.zip](https://www.dropbox.com/s/obkdsdgz088l6ad/table_10.zip?dl=1) in this directory.
 3. Set your working directory to  `R_Workshop`:
 
 ![alt text](images/setWD.png)
 
 4. Load `table_10.csv`[^2] into R and assign it to a data frame calle `dfm`.(Hint: Use the help tab in RStudio to search for the command and find the exact syntax)
+Note: default working directory is `/home/your_user_name`. If your `table_10.csv` is at `~/Downloads/table_10.csv`, without creating a new directory as in 1-3:
+```
+dfm <- read.csv("./Downloads/table_10.csv")
+```
 5. _OPTIONAL:_ Try to use the `read.table()` function. What is different?
+See [https://stackoverflow.com/questions/12828438/read-csv-vs-read-table] for description of the differences.
+```
+dfm <- read.table("./Downloads/table_10.csv", sep = ",")
+```
 6. Check out the column names
+```
+names(dfm)
+```
 7. Look at the first few rows to see if you like what you did
+```
+head(dfm)
+```
 8. How would you retreive all records for "New England"?
+```
+dfm[dfm$division == "New England",] # The comma is important
+```
 9. Using the columns with `totalpop` and `totalIL` calculate the percentage of the illiterate population, call it `pctIL` and add it as a new column to the data frame.
+```
+dfm$pctIL <- dfm$totalIL/dfm$totalpop
+```
 10. _FOR FUN:_
 ```{r eval=FALSE}
 dColors <- data.frame(division = levels(dfm$division), color = rainbow(nlevels(dfm$division)))
