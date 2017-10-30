@@ -305,7 +305,7 @@ dfm <- read.csv("./Downloads/table_10.csv")
 
 See [https://stackoverflow.com/questions/12828438/read-csv-vs-read-table] for description of the differences.
 ```
-dfm <- read.table("./Downloads/table_10.csv", sep = ",")
+dfm <- read.table("./Downloads/table_10.csv", header= TRUE, sep = ",")
 ```
 6. Check out the column names
 ```
@@ -394,13 +394,20 @@ This is one of the simplest cases. Typically going from long to wide data tables
 ***
 #### Exercise 3 (Optional)
 1. Install and load the `reshape2` package.
-```
+```{r}
 install.packages("reshape2", dependencies = TRUE)
 library("reshape2")
 ```
 2. Use the data frame `dfm` you created earlier (from `table_10.csv`)
 3. Select the first four columns and save them into a new data frame `dfm.select`
+```{r}
+dfm[names(dfm)[1:4]]
+```
 4. Convert the selection from wide to long format, using `state` and `division` as ID variables and save into a new data frame `dfm.long`
+```{r}
+melt(dfm[names(dfm)[1:4]], id.vars = c("state", "division"))
+```
+
 
 ***
 
